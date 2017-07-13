@@ -7,15 +7,47 @@
 //
 
 import UIKit
+import ReSwift
+
+class AppLogic {
+    
+    struct AddAction: Action { }
+    
+    static func appReducer(action: Action, state: AppState?) -> AppState {
+        
+        
+        
+        var state = state ?? AppState()
+        
+        switch action {
+        case _ as AddAction: state.count += 1
+        default: break
+        }
+        
+        return state
+    }
+    
+}
+
+struct AppState: StateType {
+    var count: Int = 0
+}
+
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    
+    
+    
+    let mainStore = Store<AppState>(reducer: AppLogic.appReducer, state: nil)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
         return true
     }
 
